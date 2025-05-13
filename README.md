@@ -10,3 +10,6 @@
 <br>
 
 ![data model](https://github.com/bayyangjie/Uber-Trips-Analysis/blob/main/images/data%20model.png)
+
+# Data Cleaning
+* When inspecting the data types of the variables in the dataset, it was discovered that the date variables 'tpep_pickup_datetime' and 'tpep_dropoff_datetime' had incorrect 'object' datatype. and was converted into 'datetime64' data type.
