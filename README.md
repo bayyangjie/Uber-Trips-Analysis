@@ -1,22 +1,18 @@
 # Uber-Trips-Analysis
 
-# Dimensional Modelling
+# Data Modelling 
 
-* Converting the dataset from a flat format into a fact & dimension tables format. The tool Lucid Chart is used to perform this transformation.
+## Schema Design 
 
-* Created the data model by creating dimension tables of descriptive variables and the fact table of quantitative variables. The individual dimension tables are linked to the fact table through linking up the primary key in the dimension tables to the foreign key in the fact table. The foreign keys in the fact table are created in this analysis with the same name as the primary keys in the related dimension tables.
-  * "passenger_count" is added to the fact table because it is a quantitative and measurable figure which would nautrally keep changing (passengers in a cab). But in this analysis, 'passenger_count' and 'trip_distance' are put in dimension tables for learning how to create dimension tables in the data model.
-  * Primary-Foreign key relationship between the Fact table and Dimension tables is created by creating new key columns such as 'id'. The 'id' columns created in the dimension tables are then useed for linking up with the Fact table. The Fact table contains all the new key columns (that identify as foreign keys in the Fact table)  as well as the other quantitative/numerical variables from the dataset.
- 
+The purpose of modelling the data is to convert the dataset from a flat format into a star schema comprising the fact and dimension tables.
+- Dimension Tables: Descriptive variables and create ID columns that serve as the primary key in the dimension table
+- Fact Table: Combine the ID columns from the Dimension tables and are used as Foreign keys in the Fact table. Other quantitative columns from original dataset are included as well. The Fact table only consists of numerical values for analysis.
+
 <br>
 
 ![data model](https://github.com/bayyangjie/Uber-Trips-Analysis/blob/main/images/data%20model.png)
 
-# Data Cleaning
-* When inspecting the data types of the variables in the dataset, it was discovered that the date variables 'tpep_pickup_datetime' and 'tpep_dropoff_datetime' had incorrect 'object' datatype. and was converted into 'datetime64' data type.
-
-
-# Creating the Dimension Tables
+## Creating Dimension Tables
 The dimension table are created with Python in Jupyter Notebook. Each table is created by extracting the descriptive column keys from the dataset. An ID column is created in each of the dimension tables to represent the indexing sequence from 0.
 
 Some dimension tables involved additional transformation steps to map the actual label names to each distinct numerical value in the original dataset column: <br>
@@ -89,7 +85,7 @@ payment_type_dim['payment_type_id'] = payment_type_dim.index
 payment_type_dim['payment_type_name'] = payment_type_dim['payment_type'].map(payment_type_name)
 ```
 
-# Creating the Fact Table
+## Creating Fact Table
 The Fact table was created by merging the original dataframe with the Dimension tables based on the Primary-Foreign key relationship. The ID columns which represented the row indexing in both the dimension tables and fact table were used as the common key. In the original dataframe, the row indexing is reset to a defualt numerical sequence starting from 0 as well and 'trip_id' is assigned as the name of the row index column.
 ```python
 # creating the fact table by merging the original dataframe with the individual dimension tables using the common key
@@ -102,3 +98,5 @@ fact_table = df.merge(passenger_count_dim, left_on='trip_id', right_on='passenge
              .merge(payment_type_dim, left_on='trip_id', right_on='payment_type_id')
 ```
 
+# Data Cleaning
+* When inspecting the data types of the variables in the dataset, it was discovered that the date variables 'tpep_pickup_datetime' and 'tpep_dropoff_datetime' had incorrect 'object' datatype. and was converted into 'datetime64' data type.
