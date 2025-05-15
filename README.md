@@ -1,4 +1,10 @@
-# Uber-Trips-Analysis
+# Analysis of Uber Trips
+
+# Objective
+
+
+# Table of Contents
+
 
 # Data Modelling 
 
