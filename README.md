@@ -117,7 +117,10 @@ fact_table = df.merge(passenger_count_dim, left_on='trip_id', right_on='passenge
 * When inspecting the data types of the variables in the dataset, it was discovered that the date variables 'tpep_pickup_datetime' and 'tpep_dropoff_datetime' had incorrect 'object' datatype. and was converted into 'datetime64' data type.
 
 
-# Creating the data pipeline in Google Compute Engine using MAGE
+# Data Storage on Google Compute Engine (GCE)
+The csv dataset is loaded into GCE and stored there. An API connection will then be setup to connect to MAGE for executing the data pipeline codes. 
+
+# Creating the data pipeline using MAGE
 
 ## MAGE - Load Data
 The data is loaded using the url generated in GCE and then converted into a dataframe. 
