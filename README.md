@@ -6,6 +6,12 @@
 # Table of Contents
 
 
+# Tools used
+* Google Cloud - Used to store the data
+* Google Compute - Data pipeline is created here using Mage
+* Big Query - Used for running SQL queries
+* Looker - Generating the visualizations
+
 # Data Modelling 
 
 ## Schema Design 
