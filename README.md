@@ -12,6 +12,9 @@
 * Big Query - Used for running SQL queries
 * Looker - Generating the visualizations
 
+# Data Architecture
+
+
 # Data Modelling 
 
 ## Schema Design 
