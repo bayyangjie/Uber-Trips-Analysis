@@ -115,3 +115,14 @@ fact_table = df.merge(passenger_count_dim, left_on='trip_id', right_on='passenge
 
 # Data Cleaning
 * When inspecting the data types of the variables in the dataset, it was discovered that the date variables 'tpep_pickup_datetime' and 'tpep_dropoff_datetime' had incorrect 'object' datatype. and was converted into 'datetime64' data type.
+
+
+# Creating the data pipeline in Google Compute Engine using MAGE
+
+## MAGE - Load Data
+The data is loaded using the url generated in GCE and then converted into a dataframe. 
+
+
+## MAGE - Data Transformation
+The python code that was written in Jupyter Notebook is copied into MAGE and stored under the Data Transformation phase titled "uber_transformation".
+
