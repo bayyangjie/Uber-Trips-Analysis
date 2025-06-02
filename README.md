@@ -123,9 +123,11 @@ The csv dataset is loaded into GCE and stored there. An API connection will then
 # Creating the data pipeline using MAGE
 
 ## MAGE - Load Data
-The data is loaded using the url generated in GCE and then converted into a dataframe. 
+The csv data is extracted using the url generated in GCE and then converted into a dataframe. 
 
 
 ## MAGE - Data Transformation
-The python code that was written in Jupyter Notebook is copied into MAGE and stored under the Data Transformation phase titled "uber_transformation".
+The data from the LOAD stage is then parsed into the TRANSFORMATION block. This is achieved by simply by copying the python code that was written in Jupyter Notebook into MAGE. The transformation block here is named as "uber_transformation".
+
+
 
