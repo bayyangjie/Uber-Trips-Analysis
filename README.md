@@ -8,7 +8,7 @@
 
 # Tools used
 * Google Cloud - Used to store the data
-* Google Compute - Data pipeline is created here using Mage
+* Google Compute - MAGE is used to build, deploy, and run data pipelines for performing ETL (Extract, Transform, Load) or ELT processes. Google Compute Engine (GCE) is just the infrastructure platform where Mage runs.
 * Big Query - Used for running SQL queries
 * Looker - Generating the visualizations
 
