@@ -132,5 +132,5 @@ The data from the LOAD stage is then parsed into the TRANSFORMATION block. This 
 ## MAGE - Load Data into BigQuery
 * The YAML file (io.config.yaml) contains the credentials to be used for connecting to BigQuery. In this case since BigQuery is what we are connecting to, we will use the "GOOGLE_SERVICE_ACC_KEY" credentials in the YAML file.
 
-* Creating an empty dataset for the "fact_table" data to be loaded into in BigQuery named as "uber_data_engineering_yt".
+* Creating an empty dataset named "uber_engineering_yt" to store a new table called "fact_table" in Google BigQuery. The data that will be loaded into the new table is the transformed data from the EXPORTER block in the MAGE pipeline. 
 
