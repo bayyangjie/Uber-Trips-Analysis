@@ -122,13 +122,13 @@ The csv dataset is loaded into GCE and stored there. An API connection will then
 
 # Creating the data pipeline using MAGE
 
-## MAGE - DATA LOADER BLOCK
+## MAGE - DATA LOADER block
 The csv data is extracted using the url generated in GCE and then converted into a dataframe. 
 
-## MAGE - TRANSFORMER BLOCK
+## MAGE - TRANSFORMER block
 The data from the LOAD stage is then parsed into the TRANSFORMATION block. This is achieved by simply by copying the python code that was written in Jupyter Notebook into MAGE. The transformation block here is named as "uber_transformation".
 
-## MAGE - EXPORTER BLOCK
+## MAGE - EXPORTER block
 * The YAML file (io.config.yaml) contains the credentials to be used for connecting to BigQuery. In this case since BigQuery is what we are connecting to, we will use the "GOOGLE_SERVICE_ACC_KEY" credentials in the YAML file. <br>
   
 ```MAGE
