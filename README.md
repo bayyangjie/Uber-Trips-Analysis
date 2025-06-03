@@ -130,5 +130,7 @@ The csv data is extracted using the url generated in GCE and then converted into
 The data from the LOAD stage is then parsed into the TRANSFORMATION block. This is achieved by simply by copying the python code that was written in Jupyter Notebook into MAGE. The transformation block here is named as "uber_transformation".
 
 ## MAGE - Load Data into BigQuery
-* The YAML file (io.config.yaml) contains the credentials to be used for connecting to BigQuery. In this case since BigQuery is what we are connecting to, we will use the "GOOGLE_SERVICE_ACC_KEY" credentials in the YAML file. 
+* The YAML file (io.config.yaml) contains the credentials to be used for connecting to BigQuery. In this case since BigQuery is what we are connecting to, we will use the "GOOGLE_SERVICE_ACC_KEY" credentials in the YAML file.
+
+* Creating an empty table for the data to be loaded into in BigQuery named as "uber_data_engineering_yt". This will be the table where the "fact_table" data is loaded into.
 
