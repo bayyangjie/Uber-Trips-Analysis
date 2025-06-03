@@ -148,5 +148,6 @@ def export_data_to_big_query(data: pd.DataFrame, **kwargs) -> None:
 ```
 
 # Google BigQuery - Receiving the Transformed Data from MAGE
-* Created an empty dataset named "uber_engineering_yt" to store a new table called "fact_table" in Google BigQuery. The data that will be loaded into the new table is the transformed data from the EXPORTER block in the MAGE pipeline. 
+* Created an empty dataset named "uber_engineering_yt" to store a new table called "fact_table" in Google BigQuery. The data that will be loaded into the new table is the transformed data from the EXPORTER block in the MAGE pipeline. <br>
 
+<img src="https://github.com/bayyangjie/Uber-Trips-Analysis/blob/main/images/bigquery_table_uber_engineering_yt.png" width="30%">
