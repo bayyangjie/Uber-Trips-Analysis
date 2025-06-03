@@ -130,6 +130,8 @@ The data from the LOAD stage is then parsed into the TRANSFORMATION block. This 
 
 ## MAGE - EXPORTER block
 * The YAML file (io.config.yaml) contains the credentials to be used for connecting to BigQuery. In this case since BigQuery is what we are connecting to, we will use the "GOOGLE_SERVICE_ACC_KEY" credentials in the YAML file. <br>
+
+* "if_exists='replace' ensures that each time the code blocks are reran, the new data is not appended but updated over the existing version, this ensures no data duplication happens.
   
 ```MAGE
 def export_data_to_big_query(data: pd.DataFrame, **kwargs) -> None:
