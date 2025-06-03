@@ -130,5 +130,5 @@ The csv data is extracted using the url generated in GCE and then converted into
 The data from the LOAD stage is then parsed into the TRANSFORMATION block. This is achieved by simply by copying the python code that was written in Jupyter Notebook into MAGE. The transformation block here is named as "uber_transformation".
 
 ## MAGE - Load Data into BigQuery
-
+* The YAML file (io.config.yaml) contains the credentials to be used for connecting to BigQuery.
 
