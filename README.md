@@ -122,15 +122,31 @@ The csv dataset is loaded into GCE and stored there. An API connection will then
 
 # Creating the data pipeline using MAGE
 
-## MAGE - Extract Data
+## MAGE - DATA LOADER BLOCK
 The csv data is extracted using the url generated in GCE and then converted into a dataframe. 
 
-
-## MAGE - Data Transformation
+## MAGE - TRANSFORMER BLOCK
 The data from the LOAD stage is then parsed into the TRANSFORMATION block. This is achieved by simply by copying the python code that was written in Jupyter Notebook into MAGE. The transformation block here is named as "uber_transformation".
 
-## MAGE - Load Data into BigQuery
-* The YAML file (io.config.yaml) contains the credentials to be used for connecting to BigQuery. In this case since BigQuery is what we are connecting to, we will use the "GOOGLE_SERVICE_ACC_KEY" credentials in the YAML file.
+## MAGE - EXPORTER BLOCK
+* The YAML file (io.config.yaml) contains the credentials to be used for connecting to BigQuery. In this case since BigQuery is what we are connecting to, we will use the "GOOGLE_SERVICE_ACC_KEY" credentials in the YAML file. <br>
+  
+```MAGE
+def export_data_to_big_query(data: pd.DataFrame, **kwargs) -> None:
+    """
+    Exports the fact_table DataFrame to BigQuery.
+    """
+    table_id = 'uber-trips-analysis.uber_data_engineering_yt.fact_table'
+    config_path = path.join(get_repo_path(), 'io_config.yaml')
+    config_profile = 'default'
 
-* Creating an empty dataset named "uber_engineering_yt" to store a new table called "fact_table" in Google BigQuery. The data that will be loaded into the new table is the transformed data from the EXPORTER block in the MAGE pipeline. 
+    BigQuery.with_config(ConfigFileLoader(config_path, config_profile)).export(
+        data,  # use directly since it's already the DataFrame
+        table_id,
+        if_exists='replace',
+    )
+```
+
+# Google BigQuery - Receiving the Transformed Data from MAGE
+* Created an empty dataset named "uber_engineering_yt" to store a new table called "fact_table" in Google BigQuery. The data that will be loaded into the new table is the transformed data from the EXPORTER block in the MAGE pipeline. 
 
