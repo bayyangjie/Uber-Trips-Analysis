@@ -189,3 +189,4 @@ for table_name, df in data.items():
 # Google BigQuery - Receiving the Transformed Data from MAGE
 * Created an empty dataset named "uber_engineering_yt" to store the exported dataframe tables (from the TRANSFORMER block) in Google BigQuery.
 
+<img src="https://github.com/bayyangjie/Uber-Trips-Analysis/blob/main/images/bigquery_table_uber_engineering_yt.png" width=30%>
