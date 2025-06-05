@@ -125,6 +125,19 @@ The csv dataset is loaded into GCE and stored there. An API connection will then
 ## MAGE - DATA LOADER block
 The csv data is extracted using the url generated in GCE and then converted into a dataframe. 
 
+The URL refers to the location of the uploaded CSV file in Google Cloud Platform.
+```mage
+@data_loader
+def load_data_from_api(*args, **kwargs):
+    """
+    Template for loading data from API
+    """
+    url = 'https://storage.googleapis.com/uber_trip_analysis_project/uber%20dataset.csv'
+    response = requests.get(url)
+
+    return pd.read_csv(io.StringIO(response.text), sep=',')
+```
+
 ## MAGE - TRANSFORMER block
 The data from the LOAD stage is then parsed into the TRANSFORMATION block. This is achieved by simply by copying the python code that was written in Jupyter Notebook into MAGE. The transformation block here is named as "uber_transformation".
 
@@ -132,21 +145,40 @@ The data from the LOAD stage is then parsed into the TRANSFORMATION block. This 
 * The YAML file (io.config.yaml) contains the credentials to be used for connecting to BigQuery. In this case since BigQuery is what we are connecting to, we will use the "GOOGLE_SERVICE_ACC_KEY" credentials in the YAML file. <br>
 
 * "if_exists='replace' ensures that each time the code blocks are reran, the new data is not appended but updated over the existing version, this ensures no data duplication happens.
-  
+
+* config_path, config_profile
+The root path is used so your pipeline knows where to find the YAML file that securely stores BigQuery credentials.
+
+Purpose:
+Used to authenticate and connect to BigQuery when exporting data.
+
+* 'df' in the loop:
+Each individual DataFrame from the data dictionary returned by the Transformer block.
+
+* table_id
+The full path to the BigQuery table where the data will be exported.
+
 ```MAGE
-def export_data_to_big_query(data: pd.DataFrame, **kwargs) -> None:
+def export_data_to_big_query(data: dict[str, DataFrame], **kwargs) -> None:
     """
-    Exports the fact_table DataFrame to BigQuery.
+    Export each DataFrame in the dictionary to a separate BigQuery table.
+    Only export tables whose names end with '_dim'.
     """
-    table_id = 'uber-trips-analysis.uber_data_engineering_yt.fact_table'
     config_path = path.join(get_repo_path(), 'io_config.yaml')
     config_profile = 'default'
 
-    BigQuery.with_config(ConfigFileLoader(config_path, config_profile)).export(
-        data,  # use directly since it's already the DataFrame
-        table_id,
-        if_exists='replace',
-    )
+    # Filter to include only keys ending with '_dim'
+    filtered_data = {k: v for k, v in data.items() if k.endswith('_dim')}
+
+    for table_name, df in filtered_data.items():
+        print(f"Exporting {table_name}: type = {type(df)}")
+        table_id = f'uber-trips-analysis.uber_data_engineering_yt.{table_name}'
+
+        BigQuery.with_config(ConfigFileLoader(config_path, config_profile)).export(
+            df,
+            table_id,
+            if_exists='replace',
+        )
 ```
 
 # Google BigQuery - Receiving the Transformed Data from MAGE
