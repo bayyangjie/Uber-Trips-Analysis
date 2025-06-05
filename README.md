@@ -120,7 +120,7 @@ fact_table = df.merge(passenger_count_dim, left_on='trip_id', right_on='passenge
 # Data Storage on Google Compute Engine (GCE)
 The csv dataset is loaded into GCE and stored there. An API connection will then be setup to connect to MAGE for executing the data pipeline codes. 
 
-# Creating the data pipeline using MAGE
+# Data Pipeline creation with MAGE
 
 ## MAGE - DATA LOADER block
 The csv data is extracted using the url generated in GCE and then converted into a dataframe. 
@@ -142,23 +142,8 @@ def load_data_from_api(*args, **kwargs):
 The data from the LOAD stage is then parsed into the TRANSFORMATION block. This is achieved by simply by copying the python code that was written in Jupyter Notebook into MAGE. The transformation block here is named as "uber_transformation".
 
 ## MAGE - EXPORTER block
-* The YAML file (io.config.yaml) contains the credentials to be used for connecting to BigQuery. In this case since BigQuery is what we are connecting to, we will use the "GOOGLE_SERVICE_ACC_KEY" credentials in the YAML file. <br>
-
-* "if_exists='replace' ensures that each time the code blocks are reran, the new data is not appended but updated over the existing version, this ensures no data duplication happens.
-
-* config_path, config_profile
-The root path is used so your pipeline knows where to find the YAML file that securely stores BigQuery credentials.
-
-Purpose:
-Used to authenticate and connect to BigQuery when exporting data.
-
-* 'df' in the loop:
-Each individual DataFrame from the data dictionary returned by the Transformer block.
-
-* table_id
-The full path to the BigQuery table where the data will be exported.
-
-```MAGE
+* The YAML file (io.config.yaml) contains the GOOGLE BIGQUERY credentials to be used for connecting to BigQuery. A full directory of where the YAML file is located is formed by merging the paths of the root working directory in MAGE and the location of the YAML file itself. <br>
+```mage
 def export_data_to_big_query(data: dict[str, DataFrame], **kwargs) -> None:
     """
     Export each DataFrame in the dictionary to a separate BigQuery table.
@@ -166,22 +151,41 @@ def export_data_to_big_query(data: dict[str, DataFrame], **kwargs) -> None:
     """
     config_path = path.join(get_repo_path(), 'io_config.yaml')
     config_profile = 'default'
+```
 
-    # Filter to include only keys ending with '_dim'
-    filtered_data = {k: v for k, v in data.items() if k.endswith('_dim')}
+* 'for' loop
 
-    for table_name, df in filtered_data.items():
-        print(f"Exporting {table_name}: type = {type(df)}")
+The YAML file credentials to BigQuery is stored inside the object "config_path" which designates the directory where the credentials are stored in MAGE. <br>
+
+config_path: path to the YAML file (e.g., /your/mage/project/io_config.yaml) <br>
+
+config_profile: which profile in the YAML to use (e.g., default)
+```MAGE
+def export_data_to_big_query(data: dict[str, DataFrame], **kwargs) -> None:
+    Export each DataFrame in the dictionary to a separate BigQuery table.
+    """
+    config_path = path.join(get_repo_path(), 'io_config.yaml')
+    config_profile = 'default'
+```
+
+The table_id refers to the ID of each set of dataset name-table pair in Bigquery.
+
+BigQuery.with_config() loads the BigQuery credentials and settings from the io_config.yaml file (read by ConfigFileLoader). 
+
+Each looped set of table_name (name of each DataFrame returned from TRANSFORMER block) & df (the actual pandas dataframe corresponding to each name) is being dynamically exported and created in BigQuery. 
+
+Any reruns of the segments (i.e LOADER/TRANSFORMER/EXPORTER) in MAGE will also overwrite existing data to prevent data duplication.
+
+```MAGE
+for table_name, df in data.items():
         table_id = f'uber-trips-analysis.uber_data_engineering_yt.{table_name}'
 
         BigQuery.with_config(ConfigFileLoader(config_path, config_profile)).export(
             df,
             table_id,
             if_exists='replace',
-        )
 ```
 
 # Google BigQuery - Receiving the Transformed Data from MAGE
-* Created an empty dataset named "uber_engineering_yt" to store a new table called "fact_table" in Google BigQuery. The data that will be loaded into the new table is the transformed data from the EXPORTER block in the MAGE pipeline. <br>
+* Created an empty dataset named "uber_engineering_yt" to store the exported dataframe tables (from the TRANSFORMER block) in Google BigQuery.
 
-<img src="https://github.com/bayyangjie/Uber-Trips-Analysis/blob/main/images/bigquery_table_uber_engineering_yt.png" width="30%">
