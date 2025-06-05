@@ -117,15 +117,16 @@ fact_table = df.merge(passenger_count_dim, left_on='trip_id', right_on='passenge
 * When inspecting the data types of the variables in the dataset, it was discovered that the date variables 'tpep_pickup_datetime' and 'tpep_dropoff_datetime' had incorrect 'object' datatype. and was converted into 'datetime64' data type.
 
 
-# Data Storage on Google Compute Engine (GCE)
-The csv dataset is loaded into GCE and stored there. An API connection will then be setup to connect to MAGE for executing the data pipeline codes. 
+# Google Cloud Storage
+The csv dataset is loaded and stored on the Google Cloud Platform.
 
-# Data Pipeline creation with MAGE
+# MAGE - Data Pipeline
 
 ## MAGE - DATA LOADER block
-The csv data is extracted using the url generated in GCE and then converted into a dataframe. 
+The csv data is extracted using the url generated in GCP and then converted into a dataframe. A HTTP GET request is used to fetch the dataset content using the cloud URL directory in GCP. 
 
-The URL refers to the location of the uploaded CSV file in Google Cloud Platform.
+The CSV file is then converted into a file-like object (io.StringIO) to be pandas-readable which is then parsed into a DataFrame using pd.read_csv().
+
 ```mage
 @data_loader
 def load_data_from_api(*args, **kwargs):
@@ -186,7 +187,7 @@ for table_name, df in data.items():
             if_exists='replace',
 ```
 
-# Google BigQuery
+# Google BigQuery - Database Querying
 * Created an empty dataset named "uber_data_engineering_yt" to store the exported dataframe tables (from the TRANSFORMER block) in Google BigQuery.
 
 <img src="https://github.com/bayyangjie/Uber-Trips-Analysis/blob/main/images/bigquery_table_uber_engineering_yt.png" width=30%>
