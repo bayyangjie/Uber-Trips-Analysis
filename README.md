@@ -230,3 +230,6 @@ JOIN `uber-trips-analysis.uber_data_engineering_yt.pickup_location_dim` pick ON 
 JOIN `uber-trips-analysis.uber_data_engineering_yt.dropoff_location_dim` drop ON f.dropoff_location_id = drop.dropoff_location_id
 JOIN `uber-trips-analysis.uber_data_engineering_yt.payment_type_dim` pay ON f.payment_type_id = pay.payment_type_id);
 ```
+
+# Looker Studio - Building Visualizations
+
