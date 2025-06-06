@@ -7,9 +7,10 @@ The goal of this project is to perform an end-to-end analysis of Uber Trips Data
 
 
 # Tools used
-* Google Cloud - Used to store the data
-* Google Compute - MAGE is used to build, deploy, and run data pipelines for performing ETL (Extract, Transform, Load) or ELT processes. Google Compute Engine (GCE) is just the infrastructure platform where Mage runs.
-* Big Query - Used for running SQL queries
+* Google Cloud - Data storage in GCP platform
+* Google Compute -  Creates a VM instance and then connecting to MAGE using SSH with the use of external IP/port address
+* MAGE - Build, deploy, and run data pipelines for performing ETL (Extract, Transform, Load) or ELT processes.
+* Big Query - SQL querying and database management
 * Looker - Generating the visualizations
 
 # Data Architecture
@@ -120,6 +121,7 @@ fact_table = df.merge(passenger_count_dim, left_on='trip_id', right_on='passenge
 The csv dataset is loaded and stored on the Google Cloud Platform.
 
 # MAGE - Data Pipeline
+MAGE is used as the tool for creating, managing and orchestrating the data pipeline in this project.
 
 ## MAGE - DATA LOADER block
 The csv data is extracted using the url generated in GCP and then converted into a dataframe. A HTTP GET request is used to fetch the dataset content using the cloud URL directory in GCP. 
