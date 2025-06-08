@@ -68,7 +68,7 @@ def export_data_to_big_query(data: dict[str, DataFrame], **kwargs) -> None:
 ```
 
 ## Analytics - Google Bigquery
-After exporting the transformed dataset from MAGE's exporter block, the data is loaded into Bigquery under a newly created dataset "uber_data_engineering_yt" where further SQL-based data transformation is performed to extract required columns from DIMENSION tables and the FACT table. <br>
+After exporting the transformed dataset from MAGE's exporter block, the data is loaded into Bigquery under the dataset "uber_data_engineering_yt" where further SQL-based data transformation is performed to extract required columns from DIMENSION tables and the FACT table. <br>
 
 ```sql
 CREATE OR REPLACE TABLE `uber-trips-analysis.uber_data_engineering_yt.tbl_analytics` AS(
