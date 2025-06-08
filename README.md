@@ -29,6 +29,10 @@ Database Management - Google Bigquery <br>
 
 After exporting the transformed dataset from MAGE's exporter block, the data is then loaded into Bigquery where further SQL-based data transformation is done through a series of JOIN statements to extract required columns from the DIMENSION tables and merge them with quantitative columns from the FACT table.
 
+Data Visualization - Google Looker Studio <br>
+
+
+
 # Data Modelling 
 
 ## Schema Design 
