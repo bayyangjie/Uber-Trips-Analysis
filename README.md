@@ -119,7 +119,7 @@ The barplot shows a comparison between the different rate code types in terms of
 # Data Modelling 
 
 ## Schema Design 
-The purpose of modelling the data is to convert the dataset from a flat format into a star schema comprising the FACT and DIMENSION tables. <br>
+The purpoose of the data modelling process in this analysis is to convert the dataset from a flat format into a star schema comprising of FACT and DIMENSION tables. <br>
 
 ![data model](https://github.com/bayyangjie/Uber-Trips-Analysis/blob/main/images/data%20model.png)
 
