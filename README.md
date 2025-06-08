@@ -114,7 +114,7 @@ The geographical map points to the location where most pickups happened in the c
 The barplot shows a comparison between the different rate code types in terms of total revenue and also total tip amount by each Vendor ID. 
 
 # Data Cleaning
-* When inspecting the data types of the variables in the dataset, it was discovered that the pickup and dropoff date variables 'tpep_pickup_datetime' and 'tpep_dropoff_datetime' had incorrect datatype 'object' and was converted into 'datetime64' datatype.
+Upon inspecting the data types of the variables in the dataset, it was discovered that the pickup and dropoff date variables 'tpep_pickup_datetime' and 'tpep_dropoff_datetime' had incorrect datatype 'object' and was converted into 'datetime64' datatype.
 
 # Data Modelling 
 
