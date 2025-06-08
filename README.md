@@ -27,7 +27,7 @@ After uploading the dataset to Google Cloud, a VM instance is set up in GCE for 
 
 **Database Management - Google Bigquery** <br>
 
-After exporting the transformed dataset from MAGE's exporter block, the data is then loaded into Bigquery where further SQL-based data transformation is done through a series of JOIN statements to extract required columns from the DIMENSION tables and merge them with quantitative columns from the FACT table.
+After exporting the transformed dataset from MAGE's exporter block, the data is loaded into Bigquery where further SQL-based data transformation. It is done through a series of JOIN statements to extract required columns from the DIMENSION tables and FACT tables to create a separate table for the visualisation phase.
 
 **Data Visualization - Google Looker Studio** <br>
 
