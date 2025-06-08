@@ -9,12 +9,22 @@ The goal of this project is to perform an end-to-end analysis of Uber Trips Data
 # Tools used
 * Google Cloud - Data storage in GCP platform
 * Google Compute -  Creates a VM instance and then connecting to MAGE using SSH with the use of external IP/port address
-* MAGE - Build, deploy, and run data pipelines for performing ETL (Extract, Transform, Load) or ELT processes.
+* Jupyter Notebook - Creating the Python codes for performing ETL process.
+* MAGE - Deployed on Google Compute Engine for creating the ETL data pipeline. Python codes from Jupyter Notebook are deployed on MAGE for running the data pipeline.
 * Big Query - SQL querying and database management
 * Looker - Generating the visualizations
 
 # Data Architecture
 <img src="https://github.com/bayyangjie/Uber-Trips-Analysis/blob/main/images/data%20architecture.png" width="100%">
+
+Data storage - Google Cloud Platform
+The dataset is uploaded to Google Cloud Platform by creating a bucket and then storing the dataset in it. A public URL is generated which is used as part of the data exporting process in the data pipeline later on.
+
+ETL - Google Compute Engine (GCE), MAGE
+After uploading the dataset to Google Cloud, a VM instance is set up in GCE for installing and running MAGE on it to build and execute the data pipeline for the ETL process.
+
+Database Management - Google Bigquery
+After exporting the transformed dataset from MAGE's exporter block, the data is then loaded into Bigquery where SQL analysis is done to further transform the dataset through a series of JOIN statements to extract required columns from the DIMENSION tables and merge them with quantitative columns from the FACT table.
 
 # Data Modelling 
 
