@@ -24,7 +24,7 @@ ETL - Google Compute Engine (GCE), MAGE
 After uploading the dataset to Google Cloud, a VM instance is set up in GCE for installing and running MAGE on it to build and execute the data pipeline for the ETL process.
 
 Database Management - Google Bigquery
-After exporting the transformed dataset from MAGE's exporter block, the data is then loaded into Bigquery where SQL analysis is done to further transform the dataset through a series of JOIN statements to extract required columns from the DIMENSION tables and merge them with quantitative columns from the FACT table.
+After exporting the transformed dataset from MAGE's exporter block, the data is then loaded into Bigquery where further SQL-based data transformation is done through a series of JOIN statements to extract required columns from the DIMENSION tables and merge them with quantitative columns from the FACT table.
 
 # Data Modelling 
 
