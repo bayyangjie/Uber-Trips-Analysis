@@ -17,19 +17,19 @@ The goal of this project is to perform an end-to-end analysis of Uber Trips Data
 # Data Architecture
 <img src="https://github.com/bayyangjie/Uber-Trips-Analysis/blob/main/images/data%20architecture.png" width="100%">
 
-Data storage - Google Cloud Platform <br>
+**Data storage - Google Cloud Platform** <br>
 
 The dataset is uploaded to Google Cloud Platform by creating a bucket and then storing the dataset in it. A public URL is generated which is used as part of the data exporting process in the data pipeline later on.
 
-ETL - Google Compute Engine (GCE), MAGE <br>
+**ETL - Google Compute Engine (GCE), MAGE** <br>
 
 After uploading the dataset to Google Cloud, a VM instance is set up in GCE for installing and running MAGE on it to build and execute the data pipeline for the ETL process.
 
-Database Management - Google Bigquery <br>
+**Database Management - Google Bigquery** <br>
 
 After exporting the transformed dataset from MAGE's exporter block, the data is then loaded into Bigquery where further SQL-based data transformation is done through a series of JOIN statements to extract required columns from the DIMENSION tables and merge them with quantitative columns from the FACT table.
 
-Data Visualization - Google Looker Studio <br>
+**Data Visualization - Google Looker Studio** <br>
 
 
 
