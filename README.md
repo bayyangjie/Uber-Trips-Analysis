@@ -19,7 +19,9 @@ The goal of this project is to perform an end-to-end analysis of Uber Trips Data
 
 **Data storage - Google Cloud Platform** <br>
 
-The dataset is uploaded to Google Cloud Platform by creating a bucket and then storing the dataset in it. A public URL is generated which is used as part of the data exporting process in the data pipeline later on.
+The dataset is uploaded to Google Cloud Platform by creating a bucket and then storing the dataset in it. A public URL is generated which is used as part of the data exporting process in the data pipeline later on. <br>
+
+<img src="https://github.com/bayyangjie/Uber-Trips-Analysis/blob/main/images/dataset_bucket.png" width="100%">
 
 **ETL - Google Compute Engine (GCE), MAGE** <br>
 
