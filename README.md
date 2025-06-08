@@ -25,11 +25,15 @@ The dataset is uploaded to Google Cloud Platform by creating a bucket and then s
 
 **ETL - Google Compute Engine (GCE), MAGE** <br>
 
-After uploading the dataset to Google Cloud, a VM instance is set up in GCE for installing and running MAGE on it to build and execute the data pipeline for the ETL process.
+After uploading the dataset to Google Cloud, a VM instance is set up in GCE for installing and running MAGE on it to build and execute the data pipeline for the ETL process. <br>
+
+<img src="https://github.com/bayyangjie/Uber-Trips-Analysis/blob/main/images/VM_instance.png" width="100%">
 
 **Database Management - Google Bigquery** <br>
 
-After exporting the transformed dataset from MAGE's exporter block, the data is loaded into Bigquery where further SQL-based data transformation. It is done through a series of JOIN statements to extract required columns from the DIMENSION tables and FACT tables to create a separate table for the visualisation phase.
+After exporting the transformed dataset from MAGE's exporter block, the data is loaded into Bigquery where further SQL-based data transformation. It is done through a series of JOIN statements to extract required columns from the DIMENSION tables and FACT tables to create a separate table for the visualisation phase. <br>
+
+<img src="https://github.com/bayyangjie/Uber-Trips-Analysis/blob/main/images/bigquery.png" width="100%">
 
 **Data Visualization - Google Looker Studio** <br>
 
