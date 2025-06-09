@@ -138,7 +138,48 @@ The purpoose of the data modelling process in this analysis is to convert the da
 ![data model](https://github.com/bayyangjie/Uber-Trips-Analysis/blob/main/images/data%20model.png)
 
 ## Creating DIMENSION tables
-The DIMENSION tables are created with Python in Jupyter Notebook. Each table is created by extracting the descriptive column keys from the dataset together with the creation of an ID column to represent the Primary Key for the specific DIMENSION table. But there are some DIMENSION tables that require a mapping step to map the actual label names to the corresponding distinct numerical values in the original column, as shown below. <br>
+The DIMENSION tables are created with Python in Jupyter Notebook. Each table is created by extracting the descriptive column keys from the dataset together with the creation of an ID column to represent the Primary Key for the specific DIMENSION table. 
+
+* passenger_count_dim
+Creating the DIMENSION table for passenger count in each trip.
+```sql
+# Creating the dimension table "passenger_count_dim" by extracting the 'passenger_count' column from the dataset
+passenger_count_dim = df[['passenger_count']].drop_duplicates().reset_index(drop=True)  # double[] because we are extracting out as a dataframe (dimension tables are 2D format)
+
+# Creating an indexing column
+passenger_count_dim['passenger_count_id'] = passenger_count_dim.index # single[] because each column in a dataframe is a Series, we are creating a single column so use single[]
+```
+
+* trip_distance_dim
+Creating the DIMENSION table for the trip distance which shows the distance travelled of each trip.
+```sql
+# Creating the dimension table "trip_distance_dim" by extracting the 'trip_distance' column from the dataset and resetting the indexing to start from 0 in sequence
+trip_distance_dim = df[['trip_distance']].drop_duplicates().reset_index(drop=True)
+
+# Use the new sequential index and assigns a name to the index column
+trip_distance_dim['trip_distance_id'] = trip_distance_dim.index 
+```
+
+* pickup_location_dim
+Creating a DIMENSION table which shows the latitude and longitude coordinates of each pickup location.
+```sql
+# create new dataframe by extracting the pickup longitude and latitude columns from the original dataset and resetting index to start from 0 sequentially 
+pickup_location_dim = df[['pickup_longitude','pickup_latitude']].drop_duplicates().reset_index(drop=True)
+
+# use the new sequential index and assign a new coulmn header to the column index
+pickup_location_dim['pickup_location_id'] = pickup_location_dim.index
+```
+
+* dropoff_location_dim
+Creating a DIMENSION table which shows the latitide and longitude coordinates of each dropoff location.
+```sql
+# create new dataframe by extracting the dropoff longitude and latitude columns from the original dataset and resetting index to start from 0 sequentially 
+dropoff_location_dim = df[['dropoff_longitude','dropoff_latitude']].drop_duplicates().reset_index(drop=True)
+
+# use the new sequential index and assign a new coulmn header to the column index
+dropoff_location_dim['dropoff_location_id'] = dropoff_location_dim.index
+```
+There are some DIMENSION tables that require a mapping step to map the actual label names to the corresponding distinct numerical values in the original column, as shown below. <br>
 
 * datetime_dim
 The hour, day, month, year, weekday values were extracted from the pickup/dropoff date-time column to provide a more detailed analysis. <br>
