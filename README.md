@@ -1,14 +1,26 @@
 # Uber Trips Analysis
 
+# Table of Contents
+* [Objective](#objective)  
+* [Tools Used](#tools-used)  
+* [Data Architecture](#data-architecture)  
+    * [Data Storage - GCP](#data-storage---gcp)  
+    * [ETL - GCE, MAGE](#etl---gce-mage)  
+    * [Analytics - Google Bigquery](#analytics---google-bigquery)  
+    * [Data Visualization - Google Looker Studio](#data-visualization---google-looker-studio)  
+* [Data Cleaning](#data-cleaning)  
+* [Data Modelling](#data-modelling)  
+    * [Schema Design](#schema-design)  
+    * [Creating DIMENSION tables](#creating-dimension-tables)  
+    * [Creating FACT table](#creating-fact-table)  
+* [Conclusion](#conclusion)
+    
 # Objective
 The goal of this project is to perform an end-to-end analysis of Uber Trips Data using various tools and techniques such as GCP Storage, Python, Compute Instance, Mage Data Pipeline Tool, BigQuery, and Looker Studio.
 
-# Table of Contents
-
-
 # Tools used
-* Google Cloud Platform (GCP) - Data storage in GCP platform
-* Google Compute Engine (GCE) -  Creates a VM instance and then connecting to MAGE using SSH with the use of external IP/port address
+* Google Cloud Platform(GCP) - Data storage in GCP platform
+* Google Compute Engine(GCE) -  Creates a VM instance and then connecting to MAGE using SSH with the use of external IP/port address
 * Jupyter Notebook - Creating the Python codes for performing ETL process.
 * MAGE - Deployed on Google Compute Engine for creating the ETL data pipeline. Python codes from Jupyter Notebook are deployed to run the data pipeline.
 * Google Bigquery - SQL querying and analytics
@@ -17,12 +29,12 @@ The goal of this project is to perform an end-to-end analysis of Uber Trips Data
 # Data Architecture
 <img src="https://github.com/bayyangjie/Uber-Trips-Analysis/blob/main/images/data%20architecture.png" width="100%">
 
-## Data storage - Google Cloud Platform 
+## Data storage - GCP 
 The dataset is uploaded to Google Cloud Platform by creating a bucket and then storing the dataset in it. A public URL is generated which is used as part of the data exporting process in the data pipeline later on. <br>
 
 <img src="https://github.com/bayyangjie/Uber-Trips-Analysis/blob/main/images/dataset_bucket.png" width="100%">
 
-## ETL - Google Compute Engine, MAGE 
+## ETL - GCE, MAGE 
 ### Google Compute Engine
 After uploading the dataset to Google Cloud, a VM instance is set up in GCE for installing and running MAGE on it to build and execute the data pipeline for the ETL process. <br>
 
@@ -276,6 +288,5 @@ fact_table = df.merge(passenger_count_dim, on='passenger_count')\
 ```
 
 # Conclusion
-
-
-# Further Improvments
+This project showcases how Google Cloud Platform offers a full stack data engineering solution from data cloud storage, hosting platform for running ETL orchestration tools (MAGE) to analysis and visualisation. This end to end data engineering solution also exemplifies how businesses can leverage modern tools like MAGE which lays out the basic framework for creating data pipelines,
+to streamline day-to-day workloads.
