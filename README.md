@@ -140,18 +140,22 @@ The purpoose of the data modelling process in this analysis is to convert the da
 ## Creating DIMENSION tables
 The DIMENSION tables are created with Python in Jupyter Notebook. Each table is created by extracting the descriptive column keys from the dataset together with the creation of an ID column to represent the Primary Key for the specific DIMENSION table. 
 
-* passenger_count_dim
-Creating the DIMENSION table for passenger count in each trip.
+* passenger_count_dim <br>
+
+DIMENSION table for passenger count in each trip.
 ```sql
 # Creating the dimension table "passenger_count_dim" by extracting the 'passenger_count' column from the dataset
-passenger_count_dim = df[['passenger_count']].drop_duplicates().reset_index(drop=True)  # double[] because we are extracting out as a dataframe (dimension tables are 2D format)
+# double[] is used because we want to return a DIMENSION table which is a DataFrame so the 2D structure is required
+passenger_count_dim = df[['passenger_count']].drop_duplicates().reset_index(drop=True)  
 
 # Creating an indexing column
-passenger_count_dim['passenger_count_id'] = passenger_count_dim.index # single[] because each column in a dataframe is a Series, we are creating a single column so use single[]
+# single[] is used because each column in the DataFrane is a Series and in this case we are assigning a new column to the DIMENSION table/DataFrame
+passenger_count_dim['passenger_count_id'] = passenger_count_dim.index 
 ```
 
-* trip_distance_dim
-Creating the DIMENSION table for the trip distance which shows the distance travelled of each trip.
+* trip_distance_dim <br>
+
+DIMENSION table for the trip distance which shows the distance travelled of each trip.
 ```sql
 # Creating the dimension table "trip_distance_dim" by extracting the 'trip_distance' column from the dataset and resetting the indexing to start from 0 in sequence
 trip_distance_dim = df[['trip_distance']].drop_duplicates().reset_index(drop=True)
@@ -160,8 +164,9 @@ trip_distance_dim = df[['trip_distance']].drop_duplicates().reset_index(drop=Tru
 trip_distance_dim['trip_distance_id'] = trip_distance_dim.index 
 ```
 
-* pickup_location_dim
-Creating a DIMENSION table which shows the latitude and longitude coordinates of each pickup location.
+* pickup_location_dim <br>
+
+DIMENSION table showing the latitude and longitude coordinates of each pickup location.
 ```sql
 # create new dataframe by extracting the pickup longitude and latitude columns from the original dataset and resetting index to start from 0 sequentially 
 pickup_location_dim = df[['pickup_longitude','pickup_latitude']].drop_duplicates().reset_index(drop=True)
@@ -170,9 +175,10 @@ pickup_location_dim = df[['pickup_longitude','pickup_latitude']].drop_duplicates
 pickup_location_dim['pickup_location_id'] = pickup_location_dim.index
 ```
 
-* dropoff_location_dim
-Creating a DIMENSION table which shows the latitide and longitude coordinates of each dropoff location.
-```sql
+* dropoff_location_dim <br>
+
+DIMENSION table showing the latitude and longitude coordinates of each dropoff location.
+```python
 # create new dataframe by extracting the dropoff longitude and latitude columns from the original dataset and resetting index to start from 0 sequentially 
 dropoff_location_dim = df[['dropoff_longitude','dropoff_latitude']].drop_duplicates().reset_index(drop=True)
 
@@ -181,11 +187,12 @@ dropoff_location_dim['dropoff_location_id'] = dropoff_location_dim.index
 ```
 There are some DIMENSION tables that require a mapping step to map the actual label names to the corresponding distinct numerical values in the original column, as shown below. <br>
 
-* datetime_dim
+* datetime_dim <br>
+
 The hour, day, month, year, weekday values were extracted from the pickup/dropoff date-time column to provide a more detailed analysis. <br>
 ```python
 # Creating the dimension table "datetime_dim"
-datetime_dim = df[['tpep_pickup_datetime','tpep_dropoff_datetime']].reset_index(drop=True)
+datetime_dim = df[['tpep_pickup_datetime','tpep_dropoff_datetime']].drop_duplicates().reset_index(drop=True)
 
 # Creating pickup date/time columns using the "datetime_dim" table
 datetime_dim['pickup_hour'] =  datetime_dim['tpep_pickup_datetime'].dt.hour  # creating a pickup hour column
@@ -205,7 +212,8 @@ datetime_dim['dropoff_weekday'] =  datetime_dim['tpep_dropoff_datetime'].dt.week
 datetime_dim['datetime_id'] = datetime_dim.index
 ```
 
-* rate_code_dim
+* rate_code_dim <br>
+
 There are 6 distinct values in the column "RatecodeID" with each distinct value corresponding to a rate code type name.
 ```python
 rate_code_type = {
@@ -218,7 +226,7 @@ rate_code_type = {
 }
  
 # create new dataframe from extracting 'RatecodeID' column from the original dataset and resetting the indexing to start from 0 sequentially
-rate_code_dim = df[['RatecodeID']].reset_index(drop=True)  
+rate_code_dim = df[['RatecodeID']].drop_duplicates().reset_index(drop=True)
 
 # uses the new sequential index and assigns a name to the index column
 rate_code_dim['rate_code_id'] = rate_code_dim.index  
@@ -227,8 +235,9 @@ rate_code_dim['rate_code_id'] = rate_code_dim.index
 rate_code_dim['rate_code_name'] = rate_code_dim['RatecodeID'].map(rate_code_type)
 ```
 
-* payment_type_dim
-* There are 6 distinct numerical values for the column 'payment_type' each corresponding to a payment type name.
+* payment_type_dim <br>
+
+There are 6 distinct numerical values for the column 'payment_type' each corresponding to a payment type name.
 ```python
 payment_type_name = {
     1:"Credit card",
@@ -240,7 +249,7 @@ payment_type_name = {
 }
 
 # creating new dataframe/table by extracting the column 'payment_type' from the original dataset and resetting the indexing to start from 0 sequentially
-payment_type_dim = df[['payment_type']].reset_index(drop=True)
+payment_type_dim = df[['payment_type']].drop_duplicates().reset_index(drop=True)
 
 # use the newly resetted sequential index and assign a new column name
 payment_type_dim['payment_type_id'] = payment_type_dim.index
