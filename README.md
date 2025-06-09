@@ -143,7 +143,7 @@ The DIMENSION tables are created with Python in Jupyter Notebook. Each table is 
 * passenger_count_dim <br>
 
 DIMENSION table for passenger count in each trip.
-```sql
+```python
 # Creating the dimension table "passenger_count_dim" by extracting the 'passenger_count' column from the dataset
 # double[] is used because we want to return a DIMENSION table which is a DataFrame so the 2D structure is required
 passenger_count_dim = df[['passenger_count']].drop_duplicates().reset_index(drop=True)  
@@ -156,7 +156,7 @@ passenger_count_dim['passenger_count_id'] = passenger_count_dim.index
 * trip_distance_dim <br>
 
 DIMENSION table for the trip distance which shows the distance travelled of each trip.
-```sql
+```python
 # Creating the dimension table "trip_distance_dim" by extracting the 'trip_distance' column from the dataset and resetting the indexing to start from 0 in sequence
 trip_distance_dim = df[['trip_distance']].drop_duplicates().reset_index(drop=True)
 
@@ -167,7 +167,7 @@ trip_distance_dim['trip_distance_id'] = trip_distance_dim.index
 * pickup_location_dim <br>
 
 DIMENSION table showing the latitude and longitude coordinates of each pickup location.
-```sql
+```python
 # create new dataframe by extracting the pickup longitude and latitude columns from the original dataset and resetting index to start from 0 sequentially 
 pickup_location_dim = df[['pickup_longitude','pickup_latitude']].drop_duplicates().reset_index(drop=True)
 
