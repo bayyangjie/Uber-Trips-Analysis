@@ -60,7 +60,7 @@ def load_data_from_api(*args, **kwargs):
 The data from the LOAD stage is then parsed into the TRANSFORMATION block. This is achieved by simply by copying the python code that was written in Jupyter Notebook into MAGE. The transformation block here is named as "uber_transformation".
 
 #### EXPORTER block
-The YAML file contains credentials for establishing a connection to Bigquery and the full path is located through the use of "config_path" and "config_profile" which indicates the location of the YAML file in the MAGE project as well as the specific section of the YAML file where the credentials are located. For each table name and dataframe pair in the dictionary 'data' , a table_id is built which indicates the export destinations in Bigquery. Together, the Bigquery credentials are loaded using ConfigFileLoader() and each iterated table name-dataframe pairs are exported to the respective table id destinations in Bigquery.
+The YAML file contains credentials for establishing a connection to Bigquery and the full path is retrieved through extracting the root directory of the MAGE project and the location of the YAML file within the directory. For each table name- dataframe pair in the dictionary 'data', a table_id is built which indicates the individual export destinations in Bigquery. Together, the Bigquery credentials are loaded using ConfigFileLoader() and each iterated table name-dataframe pairs are exported to the respective table_id destinations in Bigquery.
 ```mage
 def export_data_to_big_query(data: dict[str, DataFrame], **kwargs) -> None:
     """
