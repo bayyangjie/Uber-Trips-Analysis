@@ -1,7 +1,8 @@
 # Uber Trips Analysis
 
 # Table of Contents
-* [Objective](#objective)  
+* [Objective](#objective)
+* [Dataset](#dataset)
 * [Tools Used](#tools-used)  
 * [Data Architecture](#data-architecture)  
     * [Data Storage - GCP](#data-storage---gcp)  
@@ -18,7 +19,7 @@
 # Objective
 The goal of this project is to perform an end-to-end analysis of Uber Trips Data using various tools and techniques such as GCP Storage, Python, Compute Instance, Mage Data Pipeline Tool, BigQuery, and Looker Studio.
 
-# About the dataset
+# About The Dataset
 The dataset was obtained from NYC Taxi and Limousine Commission (TLC) which contains trip records of taxi and private hire vehicles in New York City. In this case, the analysis focuses on trips by Uber , a private hire vehicle company.
 
 # Tools used
